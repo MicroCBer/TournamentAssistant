@@ -38,8 +38,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Content="{materialDesign:PackIcon ArrowLeft}" ToolTip="Go Back" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding ClosePage}"/>
-                <Button Content="{materialDesign:PackIcon Close}" ToolTip="End Match" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding DestroyAndCloseMatch}"/>
+                <Button Content="{materialDesign:PackIcon ArrowLeft}" ToolTip="返回" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding ClosePage}"/>
+                <Button Content="{materialDesign:PackIcon Close}" ToolTip="结束比赛" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding DestroyAndCloseMatch}"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -60,19 +60,19 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Expander Header="Picks and Bans" IsExpanded="False" IsEnabled="False" Visibility="Hidden">
+                        <Expander Header="选则/禁用" IsExpanded="False" IsEnabled="False" Visibility="Hidden">
                             <StackPanel Orientation="Vertical">
                                 <DockPanel Margin="0,10">
-                                    <Button x:Name="PickAndBan_UseListButton" ToolTip="Use Songs from Master List" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Use Song List" Margin="10,0"/>
-                                    <Button x:Name="PickAndBan_AddSongButton" ToolTip="Add Song To Pool" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add Song" Margin="10,0"/>
-                                    <TextBox x:Name="PickAndBan_SongUrlBox" materialDesign:HintAssist.Hint="Song URL" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Margin="10,0"/>
+                                    <Button x:Name="PickAndBan_UseListButton" ToolTip="使用主列表歌曲" HorizontalAlignment="Center" VerticalAlignment="Center" Content="使用歌曲列表" Margin="10,0"/>
+                                    <Button x:Name="PickAndBan_AddSongButton" ToolTip="添加歌曲到曲池" HorizontalAlignment="Center" VerticalAlignment="Center" Content="添加歌曲" Margin="10,0"/>
+                                    <TextBox x:Name="PickAndBan_SongUrlBox" materialDesign:HintAssist.Hint="歌曲URL" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Margin="10,0"/>
                                 </DockPanel>
                                 <StackPanel Orientation="Vertical">
 
                                 </StackPanel>
                             </StackPanel>
                         </Expander>
-                        <Expander Grid.Row="1" Header="Controls" IsExpanded="True">
+                        <Expander Grid.Row="1" Header="控制" IsExpanded="True">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -84,10 +84,10 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <ComboBox x:Name="SongUrlBox" materialDesign:HintAssist.Hint="Song URL/ID" IsEditable="True" ItemsSource="{Binding AvailableOSTs}" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="10,0,0,0" />
-                                    <Button Command="{Binding LoadSong}" materialDesign:ButtonProgressAssist.Value="{Binding LoadSongButtonProgress}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" Grid.Column="2" Margin="10,0" VerticalAlignment="Center">Load Song</Button>
+                                    <ComboBox x:Name="SongUrlBox" materialDesign:HintAssist.Hint="歌曲URL/ID" IsEditable="True" ItemsSource="{Binding AvailableOSTs}" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="10,0,0,0" />
+                                    <Button Command="{Binding LoadSong}" materialDesign:ButtonProgressAssist.Value="{Binding LoadSongButtonProgress}" materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" Grid.Column="2" Margin="10,0" VerticalAlignment="Center">加载歌曲</Button>
                                 </Grid>
-                                <GroupBox x:Name="SongBox" Grid.Row="1" IsEnabled="False" Header="{Binding Match.SelectedLevel.Name}" HeaderStringFormat="Loaded Song: {0}" Margin="16">
+                                <GroupBox x:Name="SongBox" Grid.Row="1" IsEnabled="False" Header="{Binding Match.SelectedLevel.Name}" HeaderStringFormat="已加载歌曲: {0}" Margin="16">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
@@ -99,8 +99,8 @@
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <ComboBox ItemsSource="{Binding Match.SelectedLevel.Characteristics, Converter={StaticResource CharacteristicConverter}}" SelectedItem="{Binding Match.SelectedCharacteristic.SerializedName, Mode=OneWay}" materialDesign:HintAssist.Hint="Characteristic" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="CharacteristicBox_SelectionChanged" Margin="10,0" />
-                                            <ComboBox ItemsSource="{Binding Match.SelectedCharacteristic.Difficulties, Converter={StaticResource DifficultyEnumConverter}}" SelectedItem="{Binding Match.SelectedDifficulty, Mode=OneWay}" x:Name="DifficultyDropdown" Grid.Column="1" materialDesign:HintAssist.Hint="Difficulty" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="10,0" SelectionChanged="DifficultyDropdown_SelectionChanged" />
+                                            <ComboBox ItemsSource="{Binding Match.SelectedLevel.Characteristics, Converter={StaticResource CharacteristicConverter}}" SelectedItem="{Binding Match.SelectedCharacteristic.SerializedName, Mode=OneWay}" materialDesign:HintAssist.Hint="模式" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="CharacteristicBox_SelectionChanged" Margin="10,0" />
+                                            <ComboBox ItemsSource="{Binding Match.SelectedCharacteristic.Difficulties, Converter={StaticResource DifficultyEnumConverter}}" SelectedItem="{Binding Match.SelectedDifficulty, Mode=OneWay}" x:Name="DifficultyDropdown" Grid.Column="1" materialDesign:HintAssist.Hint="难度" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="10,0" SelectionChanged="DifficultyDropdown_SelectionChanged" />
                                         </Grid>
                                         <Grid Grid.Row="1" Margin="0,13">
                                             <Grid.ColumnDefinitions>
@@ -126,22 +126,22 @@
                                                     <RowDefinition/>
                                                     <RowDefinition/>
                                                 </Grid.RowDefinitions>
-                                                <CheckBox x:Name="NoFailBox" Margin="8, 0">No Fail</CheckBox>
-                                                <CheckBox x:Name="GhostNotesBox" Grid.Row="1" Margin="8, 0">Ghost Notes</CheckBox>
-                                                <CheckBox x:Name="DisappearingArrowsBox" Grid.Row="2" Margin="8, 0">Disappearing Arrows</CheckBox>
-                                                <CheckBox x:Name="NoBombsBox" Grid.Row="3" Margin="8, 0">No Bombs</CheckBox>
-                                                <CheckBox x:Name="NoWallsBox" Grid.Row="4" Margin="8, 0">No Walls</CheckBox>
-                                                <CheckBox x:Name="NoArrowsBox" Grid.Row="5" Margin="8, 0">No Arrows</CheckBox>
-                                                <CheckBox x:Name="FastSongBox" Grid.Row="6" Margin="8, 0">Fast Song</CheckBox>
-                                                <CheckBox x:Name="SuperFastSongBox" Grid.Row="7" Margin="8, 0">Super Fast Song</CheckBox>
-                                                <CheckBox x:Name="FastNotesBox" Grid.Row="8" Margin="8, 0">Fast Notes</CheckBox>
-                                                <CheckBox x:Name="SlowSongBox" Grid.Row="9" Margin="8, 0">Slow Song</CheckBox>
-                                                <CheckBox x:Name="InstaFailBox" Grid.Row="10" Margin="8, 0">InstaFail</CheckBox>
-                                                <CheckBox x:Name="FailOnSaberClashBox" Grid.Row="11" Margin="8, 0">Fail On Saber Clash</CheckBox>
-                                                <CheckBox x:Name="BatteryEnergyBox" Grid.Row="12" Margin="8, 0">Battery Energy</CheckBox>
-                                                <CheckBox x:Name="ProModeBox" Grid.Row="13" Margin="8, 0">Pro Mode</CheckBox>
-                                                <CheckBox x:Name="ZenModeBox" Grid.Row="14" Margin="8, 0">Zen Mode</CheckBox>
-                                                <CheckBox x:Name="SmallCubesBox" Grid.Row="15" Margin="8, 0">Small Cubes</CheckBox>
+                                                <CheckBox x:Name="NoFailBox" Margin="8, 0">不会失败(No Fail)</CheckBox>
+                                                <CheckBox x:Name="GhostNotesBox" Grid.Row="1" Margin="8, 0">幽灵方块(Ghost Notes)</CheckBox>
+                                                <CheckBox x:Name="DisappearingArrowsBox" Grid.Row="2" Margin="8, 0">箭头消失(Disappearing Arrows)</CheckBox>
+                                                <CheckBox x:Name="NoBombsBox" Grid.Row="3" Margin="8, 0">没有炸弹(No Bombs)</CheckBox>
+                                                <CheckBox x:Name="NoWallsBox" Grid.Row="4" Margin="8, 0">没有墙壁(No Walls)</CheckBox>
+                                                <CheckBox x:Name="NoArrowsBox" Grid.Row="5" Margin="8, 0">没有箭头(No Arrows)</CheckBox>
+                                                <CheckBox x:Name="FastSongBox" Grid.Row="6" Margin="8, 0">歌曲加速(Fast Song)</CheckBox>
+                                                <CheckBox x:Name="SuperFastSongBox" Grid.Row="7" Margin="8, 0">歌曲超加速(Super Fast Song)</CheckBox>
+                                                <CheckBox x:Name="FastNotesBox" Grid.Row="8" Margin="8, 0">超速方块(Fast Notes)</CheckBox>
+                                                <CheckBox x:Name="SlowSongBox" Grid.Row="9" Margin="8, 0">歌曲减速(Slow Song)</CheckBox>
+                                                <CheckBox x:Name="InstaFailBox" Grid.Row="10" Margin="8, 0">瞬间失败(Insta Fail)</CheckBox>
+                                                <CheckBox x:Name="FailOnSaberClashBox" Grid.Row="11" Margin="8, 0">光剑相碰失败(Fail On Saber Clash)</CheckBox>
+                                                <CheckBox x:Name="BatteryEnergyBox" Grid.Row="12" Margin="8, 0">4次失误(Battery Energy)</CheckBox>
+                                                <CheckBox x:Name="ProModeBox" Grid.Row="13" Margin="8, 0">专业模式(Pro Mode)</CheckBox>
+                                                <CheckBox x:Name="ZenModeBox" Grid.Row="14" Margin="8, 0">禅模式(Zen Mode)</CheckBox>
+                                                <CheckBox x:Name="SmallCubesBox" Grid.Row="15" Margin="8, 0">变小方块(Small Cubes)</CheckBox>
                                             </Grid>
                                             <Grid Grid.Column="1">
                                                 <Grid.RowDefinitions>
@@ -151,11 +151,11 @@
                                                     <RowDefinition/>
                                                     <RowDefinition/>
                                                 </Grid.RowDefinitions>
-                                                <CheckBox x:Name="ScoreboardBox" Margin="8, 0">Show Scoreboard</CheckBox>
-                                                <CheckBox Grid.Row="1" x:Name="DisablePauseBox" Margin="8, 0" IsChecked="True">Disable Pause</CheckBox>
-                                                <CheckBox Grid.Row="2" x:Name="DisableFailBox" Margin="8, 0" IsChecked="True">Disable Fail</CheckBox>
-                                                <CheckBox Grid.Row="3" x:Name="DisableScoresaberBox" Margin="8, 0">Disable Scoresaber Submission</CheckBox>
-                                                <CheckBox Grid.Row="4" x:Name="ShowNormalNotesBox" Margin="8, 0">Disable Custom Notes on Stream</CheckBox>
+                                                <CheckBox x:Name="ScoreboardBox" Margin="8, 0">显示计分板</CheckBox>
+                                                <CheckBox Grid.Row="1" x:Name="DisablePauseBox" Margin="8, 0" IsChecked="True">禁用暂停</CheckBox>
+                                                <CheckBox Grid.Row="2" x:Name="DisableFailBox" Margin="8, 0" IsChecked="True">禁用失败</CheckBox>
+                                                <CheckBox Grid.Row="3" x:Name="DisableScoresaberBox" Margin="8, 0">禁用Scoresaber分数提交</CheckBox>
+                                                <CheckBox Grid.Row="4" x:Name="ShowNormalNotesBox" Margin="8, 0">直播时禁用自定义方块(Custom Notes)</CheckBox>
                                             </Grid>
                                         </Grid>
                                         <Grid Grid.Row="2">
@@ -164,15 +164,15 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                                <Button Content="Play Song" Command="{Binding PlaySong}" Margin="10,5"/>
-                                                <!--<Button Content="Play Song (With Sync)" Command="{Binding PlaySongWithSync}" Margin="10,5"/>
-                                                <Button Content="Play Song (With QR Sync)" Command="{Binding PlaySongWithQRSync}" Margin="10,5"/>-->
-                                                <Button Content="Play Song (With Dual Sync)" Command="{Binding PlaySongWithDualSync}" Margin="10,5"/>
-                                                <Button Content="Play Song (With AutoPause)" Command="{Binding PlaySongWithDelayedStart}" Margin="10,5"/>
+                                                <Button Content="开始" Command="{Binding PlaySong}" Margin="10,5"/>
+                                                <!--<Button Content="开始 (同步)" Command="{Binding PlaySongWithSync}" Margin="10,5"/>
+                                                <Button Content="开始 (二维码同步)" Command="{Binding PlaySongWithQRSync}" Margin="10,5"/>-->
+                                                <Button Content="开始 (直播同步)" Command="{Binding PlaySongWithDualSync}" Margin="10,5"/>
+                                                <Button Content="开始 (延迟开始)" Command="{Binding PlaySongWithDelayedStart}" Margin="10,5"/>
                                             </StackPanel>
                                             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
-                                                <Button Content="Check For Banned Mods" Command="{Binding CheckForBannedMods}"  Margin="10,5"/>
-                                                <Button Content="Return to Menu" Command="{Binding ReturnToMenu}"  Margin="10,5"/>
+                                                <Button Content="检查禁用Mods" Command="{Binding CheckForBannedMods}"  Margin="10,5"/>
+                                                <Button Content="返回主菜单" Command="{Binding ReturnToMenu}"  Margin="10,5"/>
                                             </StackPanel>
                                         </Grid>
                                     </Grid>

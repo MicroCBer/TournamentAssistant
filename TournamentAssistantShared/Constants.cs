@@ -12,52 +12,52 @@ namespace TournamentAssistantShared
         public const int VERSION_CODE = 066;
         public const string MASTER_SERVER = "tournamentassistant.net";
         public static string Changelog =
-            "0.0.1: Begin assembling UI for coordinator panels\n" +
-            "0.1.1: Implemented versioning system\n" +
-            "0.1.2: Fixed song download bug\n" +
-            "0.1.3: Recreated song detail view, refactored tournament flowcoordinator into room flowcoordinator, added match destroying / player leaving to back button on TournamentAssistant side\n" +
-            "0.1.4: Added Teams\n" +
-            "0.1.5: Reorganized workflow, baby-proofed server disconnections\n" +
-            "0.1.6: Updated for QR Sync\n" +
-            "0.1.7: Bugfixes\n" +
-            "0.1.8: Bugfixes\n" +
-            "0.1.9: Re-added no-arrows\n" +
-            "0.2.0: Prevent players from pausing, added mod list grabber\n" +
-            "0.2.1: BeatKhana charity event version\n" +
-            "0.2.2: Bugfixes, added DisableFail\n" +
-            "0.2.5: Added Banned Mods checking, bugfixes\n" +
-            "0.2.8: Fixed server config overwriting, added IPV6 support, behind-the-scenes work on Qualifiers\n" +
-            "0.3.0: Finished implementing qualifiers and decentralized network\n" +
-            "0.3.1: (skipped due to github issue)\n" +
-            "0.3.2: Added downloading from custom hosts, qualifier event settings\n" +
-            "0.3.3: Version bump for 0.12.2\n" +
-            "0.3.4: Fixed QR codes, BattleSaber,\"Gathering Data\" bug\n" +
-            "0.3.5: Fixed Oculus bug\n" +
-            "0.3.6: Changed to hub and spoke style network, bump TAUI version, fix accuracy for overlay\n" +
-            "0.3.7: Added password support and disabled score submission when nofail is on\n" +
-            "0.3.8: Fixed qualifier flow coordinator lock-in, partially fixed custom leaderboards\n" +
-            "0.4.0: Version bump to 1.13.2, merged websocket server, fixed quals leaderboard, re-mesh-networked for event scraping purposes\n" +
-            "0.4.1: Fixed a few quals ui bugs, merged player settings page\n" +
-            "0.4.2: Bump version number, stream sync fix, alpha bot-notification readded\n" +
-            "0.4.3: Version bump to 1.13.4\n" +
-            "0.4.4: Fixed modifier bug\n" +
-            "0.4.5: Merged Arimodu changes: Added direct connect, changelog, inspirational quotes, server auto-updater. Bot updates: added automatically updating leaderboard message for qualifiers. Plugin updates: Re-added anti-fail, clients no longer save the server list. Coordinator/Plugin updates: Re-enable custom-notes-on-stream toggle\n" +
-            "0.4.6: Fixed Qualifiers not showing up in list, added \"delayed start\" option for players concerned about not being able to use AutoPause, fixed qualifier event creation / song add bugs\n" +
-            "0.4.7: Fixed Qualifier song add bug\n" +
-            "0.4.8-beta: Updated plugin for Beat Saber 1.16.1\n" +
-            "0.4.9: Updated for new beatsaver api\n" +
-            "0.5.0: Updated for Beat Saber 1.18.0, added bot messaging to server\n" +
-            "0.5.1: Merge Danny's pull request\n" +
-            "0.5.2: Revert score update method\n" +
-            "0.5.3: Updated for 1.19.0, temporarily disabled Custom Notes integration as the plugin is not yet updated\n" +
-            "0.5.4: Updated for 1.21.0\n" +
-            "0.6.0: Major netcode rewrite/shift to protobuf\n" +
-            "0.6.1: Merge Danny's ServerMessage changes for BSL, use BSMT for references, fix plugin update notification\n" +
-            "0.6.2: Add new OSTs, support sending scores to non-player connections\n" +
-            "0.6.3: Various fixes related to gathering server info, most noticeable when using an associated bot\n" +
-            "0.6.4: Hotfix for two match deletion bugs and a version checking bug\n" +
-            "0.6.5: Fix scraper implementation, sexify websocket server\n" +
-            "0.6.6: Fix DLC loading, Improve messaging regarding websocket server";
+            "0.0.1: 开始搭建协调员面板的UI\n" +
+            "0.1.1: 实现版本控制系统\n" +
+            "0.1.2: 修复歌曲下载问题\n" +
+            "0.1.3: 重建歌曲详情，重构协调员进入比赛工作流，在插件处增加比赛选手退出按钮\n" +
+            "0.1.4: 增加团队选项\n" +
+            "0.1.5: 重新构建工作流，防止服务器断连\n" +
+            "0.1.6: 更新二维码同步\n" +
+            "0.1.7: 修复bug\n" +
+            "0.1.8: 修复bug\n" +
+            "0.1.9: 重添加无向模式\n" +
+            "0.2.0: 防止玩家在游戏中暂停，增加mod列表显示\n" +
+            "0.2.1: BeatKhana charity赛事版本\n" +
+            "0.2.2: 修复bug，新增禁用失败\n" +
+            "0.2.5: 增加禁用mod检查，修复bug\n" +
+            "0.2.8: 修复服务器配置文件覆写的问题，增加IPV6支持，资格赛方面后端工作\n" +
+            "0.3.0: 完成资格赛功能以及去中心化网络的实现\n" +
+            "0.3.1: (由于Github的问题跳过该版本)\n" +
+            "0.3.2: 增加从自定义服务器上下载资格赛设置\n" +
+            "0.3.3: 更新以支持0.12.2\n" +
+            "0.3.4: 修复二维码Fixed QR codes, 一起击剑, \"获取数据\"的bug\n" +
+            "0.3.5: 修复了Oculus的bug\n" +
+            "0.3.6: 切换到轮辐式网络，更新TAUI版本，修复叠加层精确度\n" +
+            "0.3.7: 增加密码功能并在不死模式时禁用分数提交\n" +
+            "0.3.8: 修复资格赛协调员工作流，有切实自定义排行榜\n" +
+            "0.4.0: 更新以支持1.13.2, 合并websocket服务器, 修复资格赛排行榜, 重建网络以适应时间抓取\n" +
+            "0.4.1: 修复了几个资格赛UI bug，合并玩家设置页\n" +
+            "0.4.2: 更新版本号，修复直播流同步，重添加机器人通知(Alpha)\n" +
+            "0.4.3: 更新以支持1.13.4\n" +
+            "0.4.4: 修复修改项bug\n" +
+            "0.4.5: 合并了Arimodu的更改: 增加直连，更新日志，励志名言，服务器自动更新器。机器人更新：新增资格赛排行榜分数更新推送消息给选手。插件更新：重新添加不死模式，客户端不再存储服务器列表。协调员/插件更新：重新开启 直播时禁用自定义方块 开关" +
+            "0.4.6: 修复了资格赛不显示在列表中的问题，为不能使用自动暂停功能的玩家提供\"延迟开始\"选项, 修复了资格赛赛事创建/歌曲添加bug\n" +
+            "0.4.7: 修复了资格赛歌曲添加问题\n" +
+            "0.4.8-beta: 更新以支持1.16.1\n" +
+            "0.4.9: 更新以支持新Beatsaver API" +
+            "0.5.0: 更新以支持1.18.0, 增加机器人与服务端交互\n" +
+            "0.5.1: 合并Danny的拉取请求\n" +
+            "0.5.2: 撤销分数功能更新\n" +
+            "0.5.3: 更新以支持1.19.0, 由于插件未及时更新，临时禁用自定义方块插件集成\n" +
+            "0.5.4: 更新以支持1.21.0\n" +
+            "0.6.0: 重构代码以适配protobuf主版本更新\n" +
+            "0.6.1: 合并Danny为BSL所做的的服务器消息，使用BSMT依赖以及修复消息更新的提交\n" +
+            "0.6.2: 增加新OST曲，支持给非玩家连接发送消息\n" +
+            "0.6.3: 一些针对获取服务器信息的修复，大多在使用机器人的时候会注意到\n" +
+            "0.6.4: 两个匹配删除错误和一个版本检查错误的热补丁\n" +
+            "0.6.5: 修复爬虫实现，使 websocket 服务器功能丰富\n" +
+            "0.6.6: 修复DLC加载问题，提升websocket服务器消息通信";
 
         public enum BeatmapDifficulty
         {

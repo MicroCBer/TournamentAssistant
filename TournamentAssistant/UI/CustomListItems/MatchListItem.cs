@@ -26,7 +26,7 @@ namespace TournamentAssistant.UI.CustomListItems
         public MatchListItem(Match match)
         {
             this.match = match;
-            matchName = $"{match.Leader.Name}\'s Room";
+            matchName = $"{match.Leader.Name} 的房间";
             matchDetails = match.Guid;
         }
 

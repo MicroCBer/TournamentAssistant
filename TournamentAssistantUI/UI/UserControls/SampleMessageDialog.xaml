@@ -25,7 +25,7 @@
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
-                CONTINUE
+                继续
             </Button>
             <Button
                 IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
@@ -35,7 +35,7 @@
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>
-                CANCEL
+                取消
             </Button>
         </StackPanel>
     </Grid>

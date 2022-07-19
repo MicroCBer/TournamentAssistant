@@ -23,7 +23,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
             if (addedToHierarchy)
             {
                 //Set up UI
-                SetTitle("Room Selection", ViewController.AnimationType.None);
+                SetTitle("大厅", ViewController.AnimationType.None);
                 showBackButton = true;
 
                 _roomSelection = BeatSaberUI.CreateViewController<RoomSelection>();
@@ -31,7 +31,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
                 _roomSelection.CreateMatchPressed += RoomSelection_MatchCreated;
 
                 _splashScreen = BeatSaberUI.CreateViewController<SplashScreen>();
-                _splashScreen.StatusText = $"Connecting to \"{Host.Name}\"...";
+                _splashScreen.StatusText = $"正在连接 \"{Host.Name}\"...";
 
                 ProvideInitialViewControllers(_splashScreen);
             }
@@ -62,7 +62,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
             await base.Client_FailedToConnectToServer(response);
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
-                _splashScreen.StatusText = !string.IsNullOrEmpty(response?.Response.Message) ? response.Response.Message : "Failed initial connection attempt, trying again...";
+                _splashScreen.StatusText = !string.IsNullOrEmpty(response?.Response.Message) ? response.Response.Message : "初始化连接失败，正在重试...";
             });
         }
 

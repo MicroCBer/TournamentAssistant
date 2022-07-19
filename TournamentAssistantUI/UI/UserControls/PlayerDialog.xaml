@@ -26,25 +26,25 @@
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Text="{Binding User.Name}" />
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1">
             <TextBlock FontSize="18" Text="{Binding User.Name}" />
-            <TextBlock FontSize="18" Text="{Binding User.Team.Name, StringFormat=Team: \{0\}}" />
-            <TextBlock FontSize="18" Text="{Binding User.PlayState, StringFormat=Play State: \{0\}}" />
-            <TextBlock FontSize="18" Text="{Binding User.DownloadState, StringFormat=Download State: \{0\}}" />
-            <TextBlock FontSize="18" Text="{Binding User.Score, StringFormat=Score: \{0\}}" />
-            <TextBlock FontSize="18" Text="{Binding User.SyncDelay, StringFormat=Sync Delay: \{0\}}" />
+            <TextBlock FontSize="18" Text="{Binding translateTeamName, StringFormat=队伍: \{0\}}" />
+            <TextBlock FontSize="18" Text="{Binding translatePlayState, StringFormat=比赛状态: \{0\}}" />
+            <TextBlock FontSize="18" Text="{Binding translateDownloadState, StringFormat=下载状态: \{0\}}" />
+            <TextBlock FontSize="18" Text="{Binding User.Score, StringFormat=分数: \{0\}}" />
+            <TextBlock FontSize="18" Text="{Binding User.SyncDelay, StringFormat=同步延迟: \{0\}}" />
             <ListBox FontSize="18" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding User.ModList}" MaxHeight="500" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{Binding KickPlayer}"
                     CommandParameter="{Binding User}">
-                KICK PLAYER
+                踢出选手
             </Button>
             <Button IsCancel="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{x:Static wpf:DialogHost.CloseDialogCommand}">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>
-                CANCEL
+                取消
             </Button>
         </StackPanel>
     </Grid>

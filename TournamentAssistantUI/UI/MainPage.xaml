@@ -50,15 +50,15 @@
                         <materialDesign:ColorZone Mode="PrimaryMid" Grid.Row="1" Effect="{DynamicResource MaterialDesignShadowDepth5}">
                             <TextBlock x:Name="PlayerCountText" Margin="16" />
                         </materialDesign:ColorZone>
-                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Command="{Binding CreateMatch}" ToolTip="Create Match" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="0" Margin="0 0 28 -20">
+                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Command="{Binding CreateMatch}" ToolTip="创建比赛" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="0" Margin="0 0 28 -20">
                             <materialDesign:PackIcon Kind="AccountMultipleAdd" Height="22" Width="22" />
                         </Button>
-                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Command="{Binding AddAllPlayersToMatch}" ToolTip="Create Match USING ALL PLAYERS" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="0" Margin="28 0 0 -15">
+                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Command="{Binding AddAllPlayersToMatch}" ToolTip="为所有选手创建比赛" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="0" Margin="28 0 0 -15">
                             <materialDesign:PackIcon Kind="ErrorOutline" Height="22" Width="22" />
                         </Button>
                     </Grid>
                 </Border>
-                <GroupBox Grid.Column="1" Header="Ongoing Matches" Margin="16">
+                <GroupBox Grid.Column="1" Header="正在进行的比赛" Margin="16">
                     <ListBox x:Name="MatchListBox" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding Client.State.Matches}" PreviewMouseWheel="MatchListBox_PreviewMouseWheel">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -75,7 +75,7 @@
                     </ListBox>
                 </GroupBox>
             </Grid>
-            <GroupBox VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Center" Header="Connected Coordinators" MinHeight="100" MinWidth="265" Margin="0,25,0,0">
+            <GroupBox VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Center" Header="在线协调员" MinHeight="100" MinWidth="265" Margin="0,25,0,0">
                 <ListBox x:Name="CoordinatorListBox">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>

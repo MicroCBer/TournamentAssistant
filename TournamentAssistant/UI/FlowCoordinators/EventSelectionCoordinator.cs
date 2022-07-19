@@ -18,14 +18,14 @@ namespace TournamentAssistant.UI.FlowCoordinators
             if (addedToHierarchy)
             {
                 //Set up UI
-                SetTitle("Event Selection", ViewController.AnimationType.None);
+                SetTitle("赛事选择", ViewController.AnimationType.None);
                 showBackButton = false;
 
                 _qualifierSelection = BeatSaberUI.CreateViewController<ItemSelection>();
                 _qualifierSelection.ItemSelected += itemSelection_ItemSelected;
 
                 _splashScreen = BeatSaberUI.CreateViewController<SplashScreen>();
-                _splashScreen.StatusText = "Gathering Event List...";
+                _splashScreen.StatusText = "获取赛事列表...";
 
                 ProvideInitialViewControllers(_splashScreen);
             }
@@ -56,7 +56,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
 
         private void UpdateScrapeCount(int count, int total)
         {
-            _splashScreen.StatusText = $"Gathering Data ({count} / {total})...";
+            _splashScreen.StatusText = $"获取数据 ({count} / {total})...";
         }
 
         private void itemSelection_ItemSelected(ListItem item)

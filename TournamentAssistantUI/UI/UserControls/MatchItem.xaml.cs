@@ -77,7 +77,9 @@ namespace TournamentAssistantUI.UI.UserControls
                 {
                     foreach (var player in Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player).OrderByDescending(x => x.Accuracy))
                     {
-                        PlayerListBox.Items.Add(player);
+                        LocalizedUser localizedUser = new LocalizedUser();
+                        localizedUser.import(player);
+                        PlayerListBox.Items.Add(localizedUser);
                     }
                 }
             });

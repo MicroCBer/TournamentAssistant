@@ -16,16 +16,16 @@
       FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid>
-        <TextBox x:Name="HostBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="tournamentassistant.net:2052" VerticalAlignment="Top" Width="218"/>
-        <Button x:Name="ConnectButton" Content="Connect X Clients" HorizontalAlignment="Left" Margin="324,10,0,0" VerticalAlignment="Top" Width="176" Click="Connect_Click"/>
-        <Button x:Name="DisconnectButton" Click="Disconnect_Click"  Content="Disconnect" HorizontalAlignment="Left" Margin="505,10,0,0" VerticalAlignment="Top" Width="123"/>
+        <TextBox x:Name="HostBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="127.0.0.1:2052" VerticalAlignment="Top" Width="218"/>
+        <Button x:Name="ConnectButton" Content="连接 X 客户端" HorizontalAlignment="Left" Margin="324,10,0,0" VerticalAlignment="Top" Width="176" Click="Connect_Click"/>
+        <Button x:Name="DisconnectButton" Click="Disconnect_Click"  Content="断开" HorizontalAlignment="Left" Margin="505,10,0,0" VerticalAlignment="Top" Width="123"/>
         <TextBox x:Name="ClientCountBox" HorizontalAlignment="Left" Height="23" Margin="247,10,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="60"/>
-        <Button Content="QRButton" HorizontalAlignment="Left" Margin="505,47,0,0" VerticalAlignment="Top" Width="123" Click="QRButton_Click"/>
+        <Button Content="二维码" HorizontalAlignment="Left" Margin="505,47,0,0" VerticalAlignment="Top" Width="123" Click="QRButton_Click"/>
         <ListBox x:Name="ScoreboardListBox" HorizontalAlignment="Left" Height="2000" Margin="10,206,0,-1536" VerticalAlignment="Top" Width="339"/>
         <ListBox x:Name="FlopListBox" HorizontalAlignment="Left" Height="2000" Margin="354,206,0,-1536" VerticalAlignment="Top" Width="339"/>
-        <Button Content="Connect as Scoreboard" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="218" Click="Scoreboard_Connect_Click"/>
-        <Button Content="Reset Leaderboard" HorizontalAlignment="Left" Margin="233,169,0,0" VerticalAlignment="Top" Width="239" Click="ResetLeaderboardClicked"/>
-        <Button Content="Send Quals Score" HorizontalAlignment="Left" Margin="469,116,0,0" VerticalAlignment="Top" Width="159" Click="QualsScoreButton_Clicked" />
+        <Button Content="作为Scoreboard连接" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="218" Click="Scoreboard_Connect_Click"/>
+        <Button Content="重置排行榜" HorizontalAlignment="Left" Margin="233,169,0,0" VerticalAlignment="Top" Width="239" Click="ResetLeaderboardClicked"/>
+        <Button Content="发送测试分数" HorizontalAlignment="Left" Margin="469,116,0,0" VerticalAlignment="Top" Width="159" Click="QualsScoreButton_Clicked" />
         <TextBox x:Name="ScoreBox" HorizontalAlignment="Left" Height="23" Margin="344,121,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Page>

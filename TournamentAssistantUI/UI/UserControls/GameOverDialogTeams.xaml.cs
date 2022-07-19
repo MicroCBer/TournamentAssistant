@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows;
+using TournamentAssistantShared.Utilities;
 
 namespace TournamentAssistantUI.UI.UserControls
 {
@@ -31,12 +32,13 @@ namespace TournamentAssistantUI.UI.UserControls
 
         public List<TeamResult> TeamResults { get; set; }
 
-        public GameOverDialogTeams(List<SongFinished> results)
+        public GameOverDialogTeams(List<LocalizedResult> results)
         {
             TeamResults = new List<TeamResult>();
 
-            results.ForEach(x =>
+            results.ForEach(r =>
             {
+                var x = r.result as SongFinished;
                 var teamResult = TeamResults.FirstOrDefault(y => y.Team.Id == x.Player.Team.Id);
 
                 //If there's no team in the results list for the current player
@@ -64,7 +66,7 @@ namespace TournamentAssistantUI.UI.UserControls
 
         private void Copy_Click(object _, RoutedEventArgs __)
         {
-            var copyToClipboard = "RESULTS:\n";
+            var copyToClipboard = "结果:\n";
             var index = 1;
 
             foreach (var result in TeamResults)

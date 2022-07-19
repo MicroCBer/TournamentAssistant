@@ -24,7 +24,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
         {
             if (addedToHierarchy)
             {
-                SetTitle($"TournamentAssistant v{Constants.VERSION}");
+                SetTitle($"比赛助手 v{Constants.VERSION}");
                 showBackButton = true;
 
                 _patchNotesViewController = BeatSaberUI.CreateViewController<PatchNotes>();
@@ -49,10 +49,10 @@ namespace TournamentAssistant.UI.FlowCoordinators
                 {
                     var message = new TournamentAssistantShared.Models.Packets.Message()
                     {
-                        MessageTitle = "Update Required",
-                        MessageText = $"Update required! You are on \'{Constants.VERSION}\', new version is \'{newVersion}\'\n" +
-                            $"Visit https://github.com/MatrikMoon/TournamentAssistant/releases\n" +
-                            $"to download the new version"
+                        MessageTitle = "发现新版本",
+                        MessageText = $"需要更新插件! 当前版本 \'{Constants.VERSION}\', 新版本 \'{newVersion}\'\n" +
+                            $"请访问 https://bsc.beatsaberchina.com/getTA 或者联系主办方\n" +
+                            $"获取最新版本"
                     };
                     _serverMessage = BeatSaberUI.CreateViewController<ServerMessage>();
                     _serverMessage.SetMessage(message);

@@ -47,7 +47,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
         {
             if (firstActivation)
             {
-                SetTitle("Qualifier Room", ViewController.AnimationType.None);
+                SetTitle("资格赛房间", ViewController.AnimationType.None);
                 showBackButton = true;
 
                 _playerDataModel = Resources.FindObjectsOfTypeAll<PlayerDataModel>().First();
@@ -156,7 +156,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
                     if (_globalLeaderboard == null)
                     {
                         _globalLeaderboard = Resources.FindObjectsOfTypeAll<PlatformLeaderboardViewController>().First();
-                        _globalLeaderboard.name = "Global Leaderboard";
+                        _globalLeaderboard.name = "总排行榜";
                     }
 
                     _globalLeaderboard.SetData(SongUtils.GetClosestDifficultyPreferLower(loadedLevel, (BeatmapDifficulty)(int)parameters.Beatmap.Difficulty, parameters.Beatmap.Characteristic.SerializedName));

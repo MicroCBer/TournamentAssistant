@@ -49,7 +49,7 @@ namespace TournamentAssistant
 
         public Plugin()
         {
-            menuButton = new MenuButton("TournamentAssistant", MenuButtonPressed);
+            menuButton = new MenuButton("比赛助手", MenuButtonPressed);
         }
 
         [OnEnable]

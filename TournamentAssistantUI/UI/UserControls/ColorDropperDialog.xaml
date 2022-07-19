@@ -21,7 +21,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" TextWrapping="Wrap" Text="{Binding Username, StringFormat=Please click inside of \{0\}\'s stream}" />
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" TextWrapping="Wrap" Text="{Binding Username, StringFormat=请点击 \{0\} 直播流内部}" />
         <Rectangle x:Name="ColorSampleRect" Grid.Row="1"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
@@ -29,14 +29,14 @@
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
-                ACCEPT
+                确定
             </Button>
             <Button IsCancel="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{x:Static wpf:DialogHost.CloseDialogCommand}">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>
-                CANCEL
+                取消
             </Button>
         </StackPanel>
     </Grid>

@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24">
-            Match Results
+            比赛结果
         </TextBlock>
         <ListBox x:Name="PlayerListBox" Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding TeamResults}">
             <ListBox.ItemContainerStyle>
@@ -34,7 +34,7 @@
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock FontSize="15" HorizontalAlignment="Center" Text="{Binding Team.Name}" />
-                        <TextBlock FontSize="12" HorizontalAlignment="Center" Text="{Binding TotalScore, StringFormat=Total Score: \{0\}}" />
+                        <TextBlock FontSize="12" HorizontalAlignment="Center" Text="{Binding TotalScore, StringFormat=总分: \{0\}}" />
                         <TextBlock FontSize="12" HorizontalAlignment="Center" Text="{Binding IndividualScores}" />
                     </StackPanel>
                 </DataTemplate>
@@ -46,10 +46,10 @@
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
-                ACCEPT
+                确定
             </Button>
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}" Click="Copy_Click">
-                COPY RESULTS
+                复制结果
             </Button>
         </StackPanel>
     </Grid>

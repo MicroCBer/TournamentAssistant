@@ -85,7 +85,7 @@ namespace TournamentAssistantUI.UI
             }
         }
 
-        private List<SongFinished> _levelCompletionResults = new();
+        private List<LocalizedResult> _levelCompletionResults = new();
         public event Action AllPlayersFinishedSong;
 
         public MainPage MainPage { get; set; }
@@ -153,7 +153,11 @@ namespace TournamentAssistantUI.UI
         {
             _ = Dispatcher.Invoke(async () =>
             {
-                var result = await DialogHost.Show(new UserDialog(MatchBox.PlayerListBox.SelectedItem as User, new CommandImplementation(KickPlayer_Executed)), "RootDialog");
+                if (MatchBox.PlayerListBox.SelectedItem != null) {
+                    LocalizedUser localizedUser = new LocalizedUser();
+                    localizedUser.import((MatchBox.PlayerListBox.SelectedItem as LocalizedUser?? new LocalizedUser()).user);
+                    var result = await DialogHost.Show(new UserDialog(localizedUser.user, new CommandImplementation(KickPlayer_Executed)), "RootDialog");
+                }
             });
         }
 
@@ -172,13 +176,18 @@ namespace TournamentAssistantUI.UI
 
         private Task Connection_PlayerFinishedSong(SongFinished results)
         {
-            LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"{results.Player.Name} has scored {results.Score}\n")));
+            LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"{results.Player.Name} 的分数为 {results.Score}\n")));
 
-            if (Match.AssociatedUsers.ContainsUser(results.Player)) _levelCompletionResults.Add(results);
+            if (Match.AssociatedUsers.ContainsUser(results.Player))
+            {
+                LocalizedResult localizedResult = new LocalizedResult();
+                localizedResult.import(results);
+                _levelCompletionResults.Add(localizedResult);
+            }
 
             var playersText = string.Empty;
             foreach (var matchPlayer in Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player)) playersText += $"{matchPlayer.Name}, ";
-            Logger.Debug($"{results.Player.Name} FINISHED SONG, FOR A TOTAL OF {_levelCompletionResults.Count} FINISHED PLAYERS OUT OF {Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player).Count()}");
+            Logger.Debug($"{results.Player.Name} 完成了歌曲，{_levelCompletionResults.Count} / {Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player).Count()} 的玩家已完成");
             if (_levelCompletionResults.Count == Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player).Count())
             {
                 AllPlayersFinishedSong?.Invoke();
@@ -408,7 +417,7 @@ namespace TournamentAssistantUI.UI
 
                     var sampleMessageDialog = new SampleMessageDialog
                     {
-                        Message = { Text = $"There was an error downloading the song:\n{e}" }
+                        Message = { Text = $"下载歌曲时发生错误:\n{e}" }
                     };
 
                     await DialogHost.Show(sampleMessageDialog, "RootDialog");
@@ -467,7 +476,7 @@ namespace TournamentAssistantUI.UI
                 {
                     var sampleMessageDialog = new SampleMessageDialog
                     {
-                        Message = { Text = $"Some players have banned mods:\n{playersWithBannedMods}" }
+                        Message = { Text = $"有玩家安装了禁用mods:\n{playersWithBannedMods}" }
                     };
 
                     if (!(bool)await DialogHost.Show(sampleMessageDialog, "RootDialog")) return false;
@@ -475,7 +484,7 @@ namespace TournamentAssistantUI.UI
             }
 
             //If we're loading a new song, we can assume we're done with the old level completion results
-            _levelCompletionResults = new List<SongFinished>();
+            _levelCompletionResults = new List<LocalizedResult>();
 
             var gm = new GameplayModifiers();
             if ((bool)NoFailBox.IsChecked) gm.Options = gm.Options | GameplayModifiers.GameOptions.NoFail;
@@ -576,7 +585,7 @@ namespace TournamentAssistantUI.UI
 
                 _primaryDisplayHighlighter.Show();
 
-                LogBlock.Inlines.Add(new Run("Waiting for QR codes...\n") { Foreground = Brushes.Yellow });
+                LogBlock.Inlines.Add(new Run("等待二维码显示...\n") { Foreground = Brushes.Yellow });
             });
 
             Func<bool, Task> allPlayersLocated = async (locationSuccess) =>
@@ -588,7 +597,7 @@ namespace TournamentAssistantUI.UI
                 {
                     var players = Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player).ToArray();
                     Logger.Debug("LOCATED ALL PLAYERS");
-                    LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run("Players located. Waiting for green screen...\n") { Foreground = Brushes.Yellow })); ;
+                    LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run("玩家图像位置已定位。等待绿幕...\n") { Foreground = Brushes.Yellow })); ;
 
                     //Wait for players to download the green file
                     List<Guid> _playersWhoHaveDownloadedGreenImage = new List<Guid>();
@@ -625,8 +634,8 @@ namespace TournamentAssistantUI.UI
                         var missing = players.Where(x => !_playersWhoHaveDownloadedGreenImage.Contains(Guid.Parse(x.Id))).Select(x => x.Name);
                         foreach (var missingPerson in missing) missingLog += $"{missingPerson}, ";
 
-                        Logger.Error($"{missingLog} failed to download a sync image, bailing out of stream sync...");
-                        LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"{missingLog} failed to download a sync image, bailing out of stream sync...\n") { Foreground = Brushes.Red })); ;
+                        Logger.Error($"{missingLog} 下载同步图像失败，切换至直播同步...");
+                        LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"{missingLog} 下载同步图像失败，切换至直播同步...\n") { Foreground = Brushes.Red })); ;
 
                         await allPlayersSynced(false);
 
@@ -648,7 +657,7 @@ namespace TournamentAssistantUI.UI
                         {
                             players[playerId].StreamDelayMs = (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond) - players[playerId].StreamSyncStartMs;
 
-                            LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"DETECTED: {players[playerId].Name} (delay: {players[playerId].StreamDelayMs})\n") { Foreground = Brushes.YellowGreen })); ;
+                            LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"检测到: {players[playerId].Name} (延迟: {players[playerId].StreamDelayMs})\n") { Foreground = Brushes.YellowGreen })); ;
 
                             //Send updated delay info
                             //As of the async refactoring, this *shouldn't* cause problems to not await. It would be very hard to properly use async from a UI event so I'm leaving it like this for now
@@ -656,7 +665,7 @@ namespace TournamentAssistantUI.UI
 
                             if (players.All(x => x.StreamDelayMs > 0))
                             {
-                                LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run("All players successfully synced. Sending PlaySong\n") { Foreground = Brushes.Green })); ;
+                                LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run("所有玩家同步完成。发送开始信号\n") { Foreground = Brushes.Green })); ;
                                 allPlayersSynced.Invoke(true);
                             }
                         }));
@@ -683,8 +692,8 @@ namespace TournamentAssistantUI.UI
                 else
                 {
                     //If the qr scanning failed, bail and just play the song
-                    Logger.Warning("Failed to locate all players on screen. Playing song without sync");
-                    LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run("Failed to locate all players on screen. Playing song without sync\n") { Foreground = Brushes.Red })); ;
+                    Logger.Warning("定位玩家图像位置失败。开始不同步比赛。");
+                    LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run("定位玩家图像位置失败。开始不同步比赛。\n") { Foreground = Brushes.Red })); ;
                     await allPlayersSynced(false);
                 }
             };
@@ -723,7 +732,7 @@ namespace TournamentAssistantUI.UI
 
                         //Logging
                         var missing = players.Where(x => x.StreamScreenCoordinates == null).Select(x => x.Name);
-                        var missingLog = "Can't see QR for: ";
+                        var missingLog = "找不到选手二维码: ";
                         foreach (var missingPerson in missing) missingLog += $"{missingPerson}, ";
                         LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run(missingLog + "\n") { Foreground = Brushes.Yellow }));
                     }
@@ -778,8 +787,8 @@ namespace TournamentAssistantUI.UI
                     var missing = players.Where(x => !_playersWhoHaveDownloadedQrImage.Contains(Guid.Parse(x.Id))).Select(x => x.Name);
                     foreach (var missingPerson in missing) missingLog += $"{missingPerson}, ";
 
-                    Logger.Error($"{missingLog} failed to download a sync image, bailing out of stream sync...");
-                    LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"{missingLog} failed to download a sync image, bailing out of stream sync...\n") { Foreground = Brushes.Red })); ;
+                    Logger.Error($"{missingLog} 下载同步图像失败，切换至直播同步...");
+                    LogBlock.Dispatcher.Invoke(() => LogBlock.Inlines.Add(new Run($"{missingLog} 下载同步图像失败，切换至直播同步...\n") { Foreground = Brushes.Red })); ;
 
                     // add seconds to account for loading into the map
                     Match.StartTime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZZZ");
@@ -825,7 +834,7 @@ namespace TournamentAssistantUI.UI
 
             if (successfully)
             {
-                Logger.Success("All players synced successfully, starting matches with delay...");
+                Logger.Success("所有玩家同步完成。开始异步比赛...");
 
                 //Send "continue" to players, but with their delay accounted for
                 SendToPlayersWithDelay(new Packet
@@ -838,7 +847,7 @@ namespace TournamentAssistantUI.UI
             }
             else
             {
-                Logger.Error("Failed to sync players, falling back to normal play");
+                Logger.Error("玩家同步失败。开始普通比赛");
                 await SendToPlayers(new Packet
                 {
                     Command = new Command()
@@ -867,7 +876,7 @@ namespace TournamentAssistantUI.UI
                 {
                     var sampleMessageDialog = new SampleMessageDialog
                     {
-                        Message = { Text = $"Some players have banned mods:\n{playersWithBannedMods}" }
+                        Message = { Text = $"有玩家安装了禁用mods:\n{playersWithBannedMods}" }
                     };
 
                     await DialogHost.Show(sampleMessageDialog, "RootDialog");
@@ -952,7 +961,7 @@ namespace TournamentAssistantUI.UI
         {
             var playersText = string.Empty;
             foreach (var player in Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player)) playersText += $"{player.Name}, ";
-            Logger.Debug($"Sending {packet.packetCase} to {playersText}");
+            Logger.Debug($"发送 {packet.packetCase} 至 {playersText}");
             await MainPage.Client.Send(Match.AssociatedUsers.Where(x => x.ClientType == User.ClientTypes.Player).Select(x => Guid.Parse(x.Id)).ToArray(), packet);
         }
 
@@ -965,9 +974,9 @@ namespace TournamentAssistantUI.UI
             {
                 Task.Run(() =>
                 {
-                    Logger.Debug($"Sleeping {(int)maxDelay - (int)player.StreamDelayMs} ms for {player.Name}");
+                    Logger.Debug($"{player.Name} 等待 {(int)maxDelay - (int)player.StreamDelayMs} ms");
                     Thread.Sleep((int)maxDelay - (int)player.StreamDelayMs);
-                    Logger.Debug($"Sending start to {player.Name}");
+                    Logger.Debug($"发送开始信号至 {player.Name}");
                     MainPage.Client.Send(Guid.Parse(player.Id), packet);
                 });
             }

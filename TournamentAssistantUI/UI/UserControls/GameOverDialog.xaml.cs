@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows;
+using TournamentAssistantShared.Utilities;
 
 namespace TournamentAssistantUI.UI.UserControls
 {
@@ -11,11 +12,11 @@ namespace TournamentAssistantUI.UI.UserControls
     /// </summary>
     public partial class GameOverDialog : UserControl
     {
-        public List<SongFinished> Results { get; set; }
+        public List<LocalizedResult> Results { get; set; }
 
-        public GameOverDialog(List<SongFinished> results)
+        public GameOverDialog(List<LocalizedResult> results)
         {
-            Results = results.OrderByDescending(x => x.Score).ToList();
+            Results = results.OrderByDescending(x => x.result.Score).ToList();
 
             DataContext = this;
 
@@ -24,10 +25,10 @@ namespace TournamentAssistantUI.UI.UserControls
 
         private void Copy_Click(object _, RoutedEventArgs __)
         {
-            var copyToClipboard = "RESULTS:\n";
+            var copyToClipboard = "结果:\n";
 
             var index = 1;
-            foreach (var result in Results) copyToClipboard += $"{index++}: {result.Player.Name} - {result.Score}\n";
+            foreach (var result in Results) copyToClipboard += $"{index++}: {result.result.Player.Name} - {result.result.Score}\n";
 
             Clipboard.SetText(copyToClipboard);
         }

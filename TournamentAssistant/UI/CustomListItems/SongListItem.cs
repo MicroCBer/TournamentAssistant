@@ -148,10 +148,10 @@ namespace TournamentAssistant.UI.CustomListItems
                     if (!string.IsNullOrEmpty(level?.levelAuthorName)) songDetailsText.text += $" <size=80%>[{level?.levelAuthorName}]</size>";
                     break;
                 case DownloadState.InProgress:
-                    songNameText.text = "Loading...";
+                    songNameText.text = "下载中...";
                     break;
                 case DownloadState.Failed:
-                    songNameText.text = "Download Error";
+                    songNameText.text = "下载错误";
                     break;
             }
         }

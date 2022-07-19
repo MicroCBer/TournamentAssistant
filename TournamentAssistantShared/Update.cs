@@ -20,8 +20,8 @@ namespace TournamentAssistantShared
 
         //For easy switching if those ever changed
         //Moon's note: while the repo url is unlikely to change, the filenames are free game. I type and upload those manually, after all
-        private static readonly string repoURL = "https://github.com/MatrikMoon/TournamentAssistant/releases/latest";
-        private static readonly string repoAPI = "https://api.github.com/repos/MatrikMoon/TournamentAssistant/releases/latest";
+        private static readonly string repoURL = "https://github.com/baoziii/TournamentAssistant/releases/latest";
+        private static readonly string repoAPI = "https://api.github.com/repos/baoziii/TournamentAssistant/releases/latest";
         private static readonly string linuxFilename = "TournamentAssistantCore";
         private static readonly string WindowsFilename = "TournamentAssistantCore.exe";
         public static async Task<bool> AttemptAutoUpdate()
