@@ -163,8 +163,26 @@ namespace TournamentAssistant.UI.FlowCoordinators
                     SetRightScreenViewController(_globalLeaderboard, ViewController.AnimationType.In);
 
                     //TODO: Review whether this could cause issues. Probably need debouncing or something similar
-                    Task.Run(() => PlayerUtils.GetPlatformUserData(RequestLeaderboardWhenResolved));
-                    SetLeftScreenViewController(_customLeaderboard, ViewController.AnimationType.In);
+                    foreach (var set in loadedLevel.beatmapLevelData.difficultyBeatmapSets)
+                    {
+                       TournamentAssistantShared.Logger.Warning($"{set.beatmapCharacteristic.serializedName},{parameters.Beatmap.Characteristic.SerializedName}");
+                        if(set.beatmapCharacteristic.serializedName.Equals(parameters.Beatmap.Characteristic.SerializedName))
+                        {
+                            TournamentAssistantShared.Logger.Warning(set.difficultyBeatmaps);
+                            TournamentAssistantShared.Logger.Warning(parameters.Beatmap.Difficulty);
+                            foreach(var difficulty in set.difficultyBeatmaps)
+                            {
+                                if (difficulty.difficulty.Equals((BeatmapDifficulty)(int)parameters.Beatmap.Difficulty))
+                                {
+                                    Task.Run(() => PlayerUtils.GetPlatformUserData(RequestLeaderboardWhenResolved, difficulty));
+                                    SetLeftScreenViewController(_customLeaderboard, ViewController.AnimationType.In);
+                                    return;
+                                }
+                            }
+                           
+                        }
+                    }
+                    
                 });
             });
         }
@@ -198,7 +216,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
             {
                 if (results.levelEndStateType == LevelCompletionResults.LevelEndStateType.Cleared)
                 {
-                    Task.Run(() => PlayerUtils.GetPlatformUserData((username, userId) => SubmitScoreWhenResolved(username, userId, results)));
+                    Task.Run(() => PlayerUtils.GetPlatformUserData((username, userId) => SubmitScoreWhenResolved(username, userId, results, map)));
 
                     _menuLightsManager.SetColorPreset(_scoreLights, true);
                     _resultsViewController.Init(results, transformedMap, map, false, highScore);
@@ -217,7 +235,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
             }
         }
 
-        private Task SubmitScoreWhenResolved(string username, ulong userId, LevelCompletionResults results)
+        private Task SubmitScoreWhenResolved(string username, ulong userId, LevelCompletionResults results, IDifficultyBeatmap map)
         {
             Task.Run(async () =>
             {
@@ -239,13 +257,14 @@ namespace TournamentAssistant.UI.FlowCoordinators
                 },
                 Packet.packetOneofCase.ScoreRequestResponse,
                 username, userId)).ScoreRequestResponse).Scores.Take(10).ToArray();
+                var info = await map.GetBeatmapDataBasicInfoAsync();
 
-                UnityMainThreadDispatcher.Instance().Enqueue(() => SetCustomLeaderboardScores(scores, userId));
+                UnityMainThreadDispatcher.Instance().Enqueue(() => SetCustomLeaderboardScores(scores, userId,info.cuttableNotesCount * 920 - 7245));
             });
             return Task.CompletedTask;
         }
 
-        private Task RequestLeaderboardWhenResolved(string username, ulong userId)
+        private Task RequestLeaderboardWhenResolved(string username, ulong userId, IDifficultyBeatmap level)
         {
             //Don't scrape on main thread
             Task.Run(async () =>
@@ -261,19 +280,23 @@ namespace TournamentAssistant.UI.FlowCoordinators
                 Packet.packetOneofCase.ScoreRequestResponse,
                 username, userId)).ScoreRequestResponse.Scores.Take(10).ToArray();
 
-                UnityMainThreadDispatcher.Instance().Enqueue(() => SetCustomLeaderboardScores(scores, userId));
+                var info=await level.GetBeatmapDataBasicInfoAsync();
+                
+
+                UnityMainThreadDispatcher.Instance().Enqueue(() => SetCustomLeaderboardScores(scores, userId, info.cuttableNotesCount * 920 - 7245));
             });
             return Task.CompletedTask;
         }
 
-        public void SetCustomLeaderboardScores(Score[] scores, ulong userId)
+        public void SetCustomLeaderboardScores(Score[] scores, ulong userId, int maxScore)
         {
             var place = 1;
             var indexOfme = -1;
             _customLeaderboard.SetScores(scores.Select(x =>
             {
                 if (x.UserId == userId.ToString()) indexOfme = place - 1;
-                return new LeaderboardTableView.ScoreData(x.score, x.Username, place++, x.FullCombo);
+                TournamentAssistantShared.Logger.Info($"Score: {x.score} MaxScore:{maxScore}");
+                return new LeaderboardTableView.ScoreData(x.score, x.Username+"\t\t\t" + ((double)x.score / maxScore * 100).ToString("N3")+"%", place++, x.FullCombo);
             }).ToList(), indexOfme);
         }
 

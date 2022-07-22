@@ -9,6 +9,12 @@ namespace TournamentAssistant.Utilities
 {
     public class PlayerUtils
     {
+        public static async Task GetPlatformUserData(Func<string, ulong, IDifficultyBeatmap, Task> usernameResolved, IDifficultyBeatmap level)
+        {
+            var user = await GetUserInfo.GetUserAsync();
+            await usernameResolved(user.userName, ulong.Parse(user.platformUserId),level);
+        }
+
         public static async Task GetPlatformUserData(Func<string, ulong, Task> usernameResolved)
         {
             var user = await GetUserInfo.GetUserAsync();
