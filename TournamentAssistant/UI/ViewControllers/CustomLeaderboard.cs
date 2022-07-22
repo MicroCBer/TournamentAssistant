@@ -22,6 +22,7 @@ namespace TournamentAssistant.UI.ViewControllers
 
         public void SetScores(List<LeaderboardTableView.ScoreData> scores, int myScorePos)
         {
+            TournamentAssistantShared.Logger.Warning(scores[0].playerName);
             int num = (scores != null) ? scores.Count : 0;
             for (int j = num; j < 10; j++)
             {
