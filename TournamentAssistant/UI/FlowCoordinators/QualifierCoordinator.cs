@@ -296,7 +296,7 @@ namespace TournamentAssistant.UI.FlowCoordinators
             {
                 if (x.UserId == userId.ToString()) indexOfme = place - 1;
                 TournamentAssistantShared.Logger.Info($"Score: {x.score} MaxScore:{maxScore}");
-                return new LeaderboardTableView.ScoreData(x.score, x.Username+"\t\t\t" + ((double)x.score / maxScore * 100).ToString("N3")+"%", place++, x.FullCombo);
+                return new LeaderboardTableView.ScoreData(x.score, $"{((double)x.score / maxScore * 100).ToString("N3")}%\t\t{x.Username}", place++, x.FullCombo);
             }).ToList(), indexOfme);
         }
 
